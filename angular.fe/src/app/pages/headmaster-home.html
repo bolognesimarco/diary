@@ -1,0 +1,13 @@
+<h1>Headmaster HomePage</h1>
+Welcome <span *ngIf="headmaster.sex=='MALE'">Mr.</span><span *ngIf="headmaster.sex=='FEMALE'">Miss</span> {{headmaster.surname}}
+
+<headmaster-class-list 
+    *ngIf="!classDetailView" 
+    [headmaster]="headmaster" 
+    (classDetailEvent)="toggleClassDetailView($event);">
+</headmaster-class-list>
+
+<headmaster-class-detail 
+    *ngIf="classDetailView" 
+    [schoolclass]="schoolclass">
+</headmaster-class-detail>

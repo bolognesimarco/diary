@@ -1,0 +1,96 @@
+<div class="container">
+
+    <form (ngSubmit)="onSubmit()" #regForm="ngForm">
+        {{diagnostic}}
+
+        <div class="form-group">
+            <label for="registrationUsernameId">Username</label>
+            <input type="text" class="form-control" id="registrationUsernameId" aria-describedby="userHelp" placeholder="Enter username"
+                required minlength="6" [(ngModel)]="model.username" name="username" #registrationUsername="ngModel">
+            <small id="userHelp" class="form-text text-muted">Simple, easy to remember username.</small>
+            <div *ngIf="registrationUsername.invalid && (registrationUsername.dirty || registrationUsername.touched)" class="alert alert-danger">
+                <div *ngIf="registrationUsername.errors.required">
+                    Username is required.
+                </div>
+                <div *ngIf="registrationUsername.errors.minlength">
+                    Username must be at least 6 characters long.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="registrationPasswordId">Password</label>
+            <input type="password" class="form-control" id="registrationPasswordId" aria-describedby="passwordHelp" placeholder="Type password"
+                required [(ngModel)]="model.password" name="password" #registrationPassword="ngModel">
+            <small id="passwordHelp" class="form-text text-muted">No rules here.. security's up to you!!.</small>
+            <div *ngIf="registrationPassword.invalid && (registrationPassword.dirty || registrationPassword.touched)" class="alert alert-danger">
+                <div *ngIf="registrationPassword.errors.required">
+                    Password is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="retypeRegistrationPasswordId">Re-Password</label>
+            <input type="password" class="form-control" id="retypeRegistrationPasswordId" placeholder="Retype password" required name="repassword"
+                validateEqual="password" [(ngModel)]="repassword" #retypeRegistrationPassword="ngModel">
+            <div *ngIf="retypeRegistrationPassword.invalid && (retypeRegistrationPassword.dirty || retypeRegistrationPassword.touched)"
+                class="alert alert-danger">
+                Passwords are not matching..
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="registrationRole">Role</label>
+            <select class="form-control" [(ngModel)]="model.role" name="role" required>
+                <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="registrationEmailId">Email address</label>
+            <input type="email" class="form-control" id="registrationEmailId" aria-describedby="emailHelp" placeholder="Enter email"
+                email required [(ngModel)]="model.email" name="email" #registrationEmail="ngModel">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div *ngIf="registrationEmail.invalid && (registrationEmail.dirty || registrationEmail.touched)" class="alert alert-danger">
+                <div *ngIf="registrationEmail.errors.required">
+                    Email is required.
+                </div>
+                <div *ngIf="!registrationEmail.errors.required && registrationEmail.errors">
+                    Email format not valid
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="registrationNameId">Name</label>
+            <input type="text" class="form-control" id="registrationNameId" aria-describedby="nameHelp" placeholder="Enter name" required
+                [(ngModel)]="model.name" name="name" #registrationName="ngModel">
+            <small id="nameHelp" class="form-text text-muted">Your first name.</small>
+            <div *ngIf="registrationName.invalid && (registrationName.dirty || registrationName.touched)" class="alert alert-danger">
+                <div *ngIf="registrationName.errors.required">
+                    Name is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="registrationSurnameId">Surname</label>
+            <input type="text" class="form-control" id="registrationSurnameId" aria-describedby="surnameHelp" placeholder="Enter surname"
+                required [(ngModel)]="model.surname" name="surname" #registrationSurname="ngModel">
+            <small id="surnameHelp" class="form-text text-muted">Your surname.</small>
+            <div *ngIf="registrationSurname.invalid && (registrationSurname.dirty || registrationSurname.touched)" class="alert alert-danger">
+                <div *ngIf="registrationSurname.errors.required">
+                    Surname is required.
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="!regForm.form.valid">Submit</button>
+
+
+
+    </form>
+
+</div>

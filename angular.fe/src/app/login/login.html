@@ -1,0 +1,34 @@
+<div class="container">
+
+    <form (ngSubmit)="onSubmit()" #logForm="ngForm">
+        {{diagnostic}}
+
+        <div class="form-group">
+            <label for="loginUsernameId">Username</label>
+            <input type="text" class="form-control" id="loginUsernameId" aria-describedby="userHelp" placeholder="Enter username"
+                required [(ngModel)]="model.username" name="username" #loginUsername="ngModel">
+            <div *ngIf="loginUsername.invalid && (loginUsername.dirty || loginUsername.touched)" class="alert alert-danger">
+                <div *ngIf="loginUsername.errors.required">
+                    Username is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="loginPasswordId">Password</label>
+            <input type="password" class="form-control" id="loginPasswordId" aria-describedby="passwordHelp" placeholder="Type password"
+                required [(ngModel)]="model.password" name="password" #loginPassword="ngModel">
+            <div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)" class="alert alert-danger">
+                <div *ngIf="loginPassword.errors.required">
+                    Password is required.
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="!logForm.form.valid">Submit</button>
+
+
+
+    </form>
+
+</div>
