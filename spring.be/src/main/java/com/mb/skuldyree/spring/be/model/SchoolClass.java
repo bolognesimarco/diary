@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class SchoolClass {
@@ -25,7 +26,16 @@ public class SchoolClass {
 	@JoinColumn(name="CLASS_ID")
 	private Set<Subject> subjects;
 	
-	
+	@OneToOne
+	private Schedule schedule;	
+
+	public Schedule getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(Schedule schedule) {
+		this.schedule = schedule;
+	}
 
 	public long getId() {
 		return id;

@@ -1,6 +1,6 @@
 package com.mb.skuldyree.spring.be.model;
 
-public enum Sex {
+public enum SexEnum {
 	MALE,
 	FEMALE
 }

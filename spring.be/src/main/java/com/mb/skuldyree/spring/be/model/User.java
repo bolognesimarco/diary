@@ -36,7 +36,7 @@ public class User {
 	
 	@Enumerated(EnumType.STRING)
 	@Column
-	private Sex sex;
+	private SexEnum sex;
 
 	public long getId() {
 		return id;
@@ -86,11 +86,11 @@ public class User {
 		this.email = email;
 	}
 
-	public Sex getSex() {
+	public SexEnum getSex() {
 		return sex;
 	}
 
-	public void setSex(Sex sex) {
+	public void setSex(SexEnum sex) {
 		this.sex = sex;
 	}
 	
