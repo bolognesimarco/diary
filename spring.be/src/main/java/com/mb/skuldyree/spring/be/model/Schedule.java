@@ -2,6 +2,7 @@ package com.mb.skuldyree.spring.be.model;
 
 import java.util.SortedSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ public class Schedule {
 	@GeneratedValue
 	private long id;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="schedule")
 	@OrderBy("weekDay")
 	private SortedSet<WeekDaySchedule> weekDaySchedules;
 
