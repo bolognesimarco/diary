@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Subject {
@@ -11,6 +12,9 @@ public class Subject {
 	@Id
 	@GeneratedValue
 	private long id;
+	
+	@ManyToOne
+	private SchoolClass schoolClass;
 	
 	@Column
 	private String name;
@@ -29,6 +33,14 @@ public class Subject {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public SchoolClass getSchoolClass() {
+		return schoolClass;
+	}
+
+	public void setSchoolClass(SchoolClass schoolClass) {
+		this.schoolClass = schoolClass;
 	}
 	
 	

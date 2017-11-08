@@ -17,13 +17,42 @@ CREATE TABLE `school_class` (
   PRIMARY KEY (`id`),
   KEY `FKteg6y4f7orrrdn0unji0wcne` (`headmaster_id`),
   CONSTRAINT `FKteg6y4f7orrrdn0unji0wcne` FOREIGN KEY (`headmaster_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `schedule` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `school_class_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK3sjrct68ohqf99vih975xp4ig` (`school_class_id`),
+  CONSTRAINT `FK3sjrct68ohqf99vih975xp4ig` FOREIGN KEY (`school_class_id`) REFERENCES `school_class` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `subject` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `class_id` bigint(20) DEFAULT NULL,
+  `school_class_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKb6jyqgqrown9aqtvovrmt8dxj` (`class_id`),
-  CONSTRAINT `FKb6jyqgqrown9aqtvovrmt8dxj` FOREIGN KEY (`class_id`) REFERENCES `school_class` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `FK2dgufxraywjg21hmtjssoi030` (`school_class_id`),
+  CONSTRAINT `FK2dgufxraywjg21hmtjssoi030` FOREIGN KEY (`school_class_id`) REFERENCES `school_class` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `week_day_schedule` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `week_day` int(11) DEFAULT NULL,
+  `schedule_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKf88dq7evymg6gt5ba51mm421d` (`schedule_id`),
+  CONSTRAINT `FKf88dq7evymg6gt5ba51mm421d` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `day_hour_schedule` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `hour_of_day` int(11) DEFAULT NULL,
+  `subject_id` bigint(20) DEFAULT NULL,
+  `weekday_schedule_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKifv8byeutq0bd9b1ne2mq7c1` (`subject_id`),
+  KEY `FKdopm41j8s2hu8f9k1ipa7nwfl` (`weekday_schedule_id`),
+  CONSTRAINT `FKdopm41j8s2hu8f9k1ipa7nwfl` FOREIGN KEY (`weekday_schedule_id`) REFERENCES `week_day_schedule` (`id`),
+  CONSTRAINT `FKifv8byeutq0bd9b1ne2mq7c1` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;

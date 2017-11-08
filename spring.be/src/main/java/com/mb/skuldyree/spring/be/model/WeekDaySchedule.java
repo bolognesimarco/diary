@@ -1,6 +1,7 @@
 package com.mb.skuldyree.spring.be.model;
 
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
 @Entity
-public class WeekDaySchedule {
+public class WeekDaySchedule implements Comparable<WeekDaySchedule> {
 
 	@Id
 	@GeneratedValue
@@ -24,7 +25,7 @@ public class WeekDaySchedule {
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="weekDaySchedule")
 	@OrderBy("dayHour")
-	private SortedSet<DayHourSchedule> dayHourSchedules;
+	private SortedSet<DayHourSchedule> dayHourSchedules = new TreeSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name="SCHEDULE_ID", nullable=false)
@@ -60,6 +61,11 @@ public class WeekDaySchedule {
 
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
+	}
+
+	@Override
+	public int compareTo(WeekDaySchedule o) {
+		return this.weekDay.compareTo(o.weekDay);
 	}
 	
 	

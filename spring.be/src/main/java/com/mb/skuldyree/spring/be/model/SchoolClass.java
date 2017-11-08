@@ -1,13 +1,15 @@
 package com.mb.skuldyree.spring.be.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -21,12 +23,14 @@ public class SchoolClass {
 	@Column
 	private String name;
 	
-
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="CLASS_ID")
-	private Set<Subject> subjects;
+	@ManyToOne
+	private Headmaster headmaster;
 	
-	@OneToOne
+
+	@OneToMany(mappedBy="schoolClass", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Set<Subject> subjects = new HashSet<>();
+	
+	@OneToOne(mappedBy="schoolClass", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Schedule schedule;	
 
 	public Schedule getSchedule() {
@@ -59,6 +63,14 @@ public class SchoolClass {
 
 	public void setSubjects(Set<Subject> subjects) {
 		this.subjects = subjects;
+	}
+
+	public Headmaster getHeadmaster() {
+		return headmaster;
+	}
+
+	public void setHeadmaster(Headmaster headmaster) {
+		this.headmaster = headmaster;
 	}
 	
 	

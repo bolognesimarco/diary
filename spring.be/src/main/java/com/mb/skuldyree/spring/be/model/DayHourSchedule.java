@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class DayHourSchedule {
+public class DayHourSchedule implements Comparable<DayHourSchedule>{
 
 	@Id
 	@GeneratedValue
@@ -56,6 +56,11 @@ public class DayHourSchedule {
 
 	public void setWeekDaySchedule(WeekDaySchedule weekDaySchedule) {
 		this.weekDaySchedule = weekDaySchedule;
+	}
+
+	@Override
+	public int compareTo(DayHourSchedule o) {
+		return this.dayHour.compareTo(o.dayHour);
 	}
 
 	

@@ -1,3 +1,23 @@
 INSERT INTO SCHOOL_CLASS (NAME, HEADMASTER_ID) 
 VALUES 
 ('Nistri II A', (SELECT ID FROM `user` WHERE USERNAME='bolo') );
+
+INSERT INTO `skuldyree`.`subject` (`name`, `school_class_id`)
+VALUES
+('Matematica', (SELECT ID FROM SCHOOL_CLASS WHERE NAME='Nistri II A'));
+
+INSERT INTO `skuldyree`.`schedule`
+(`school_class_id`)
+VALUES
+((SELECT ID FROM SCHOOL_CLASS WHERE NAME='Nistri II A'));
+
+INSERT INTO `skuldyree`.`week_day_schedule`
+(`week_day`, `schedule_id`)
+VALUES
+(0, (SELECT ID FROM SCHEDULE WHERE school_class_id=(SELECT ID FROM SCHOOL_CLASS WHERE NAME='Nistri II A')));
+
+INSERT INTO `skuldyree`.`week_day_schedule`
+(`week_day`, `schedule_id`)
+VALUES
+(1, (SELECT ID FROM SCHEDULE WHERE school_class_id=(SELECT ID FROM SCHOOL_CLASS WHERE NAME='Nistri II A')));
+
