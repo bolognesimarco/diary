@@ -1,5 +1,7 @@
-<ul>
+<ul *ngIf="schoolclass">
     <li *ngFor="let subj of schoolclass.subjects">
        {{subj.name}}
     </li>
 </ul>
+
+<button class="btn" (click)="back()"></button>

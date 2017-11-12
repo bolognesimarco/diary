@@ -21,6 +21,16 @@ import com.mb.skuldyree.spring.be.model.Headmaster;
 import com.mb.skuldyree.spring.be.model.User;
 import com.mb.skuldyree.spring.be.mvc.UserController;
 
+
+/**
+ * Questo è lo unit test del controller e basta.
+ * Infatti si usa il MockMvc che simula sia il server che la request che arriva al server
+ * portandola direttamente al dispatcher di Spring e poi si mockano i dao evitando di far
+ * toccare il DB. In pratica si mocka la request ed il DB e si testa solo il controller.
+ * 
+ * @author mbologne
+ *
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 public class UserControllerUnitTest {

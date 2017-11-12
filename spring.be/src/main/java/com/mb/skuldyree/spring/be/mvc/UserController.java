@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mb.skuldyree.spring.be.dao.SchoolClassRepository;
+import com.mb.skuldyree.spring.be.dao.SubjectRepository;
 import com.mb.skuldyree.spring.be.dao.UserRepository;
 import com.mb.skuldyree.spring.be.model.DayHourEnum;
 import com.mb.skuldyree.spring.be.model.DayHourSchedule;
@@ -35,6 +36,9 @@ public class UserController {
 	@Autowired
 	private SchoolClassRepository schoolClassRepository;
 	
+	@Autowired
+	private SubjectRepository subjectRepository;
+	
 	@GetMapping(path="/{id}")
 	public @ResponseBody User getUser(@PathVariable("id") Long id) {
 		return userRepository.findOne(id);
@@ -46,12 +50,18 @@ public class UserController {
 		if(found == null || found.size() == 0 || !found.get(0).getPassword().equals(password)) {
 			return null;
 		}
-		return found.get(0);
+		User u = found.get(0);
+		
+		if(u instanceof Headmaster) {
+			u.setRole("headmaster");
+		}
+
+		return u;
 	}
 	
 	@GetMapping(path="/test2")
 	public @ResponseBody String go2() {
-		SchoolClass found = schoolClassRepository.findOne(4L);
+		SchoolClass found = schoolClassRepository.findOne(1L);
 		return found.getSchedule().getWeekDaySchedules().last().getWeekDay().name();
 	}
 	
@@ -78,36 +88,29 @@ public class UserController {
 		
 		userRepository.save(gio);
 		
-		Headmaster bolo = new Headmaster();
-		bolo.setEmail("bolognesi.marco@gmail.com");
-		bolo.setName("Marco");
-		bolo.setPassword("bolo");
-		bolo.setSex(SexEnum.MALE);
-		bolo.setSurname("Bolognesi");
-		bolo.setUsername("bolo");
 		
-		userRepository.save(bolo);
 		
 		SchoolClass classeGiorgia = new SchoolClass();
 		classeGiorgia.setName("IIA");
-			classeGiorgia.setHeadmaster(bolo);
-			bolo.getClasses().add(classeGiorgia);
+//			classeGiorgia.setHeadmaster(bolo);// non c e piu perche è unidirectional
+			
 		
 		//SUBJECTS
 		Subject mate = new Subject();
 		mate.setName("matematica");		
 			classeGiorgia.getSubjects().add(mate);
-			mate.setSchoolClass(classeGiorgia);
+//			mate.setSchoolClass(classeGiorgia);// non c e piu perche è unidirectional
+		subjectRepository.save(mate);// lo si fa prima perchè poi la devo aggiungere anche alla dayhourschedule e li deve essere già persistent
 		
 		//ORARIO
 		Schedule orario = new Schedule();
 			classeGiorgia.setSchedule(orario);
-			orario.setSchoolClass(classeGiorgia);
+//			orario.setSchoolClass(classeGiorgia);
 		
 			//LUNEDI
 			WeekDaySchedule lunedi = new WeekDaySchedule();
 			lunedi.setWeekDay(WeekDayEnum.MONDAY);
-				lunedi.setSchedule(orario);
+//				lunedi.setSchedule(orario);
 				orario.getWeekDaySchedules().add(lunedi);
 		
 				//PRIMAORA
@@ -115,21 +118,21 @@ public class UserController {
 				primaOra.setDayHour(DayHourEnum.FIRST);
 				primaOra.setSubject(mate);		
 					lunedi.getDayHourSchedules().add(primaOra);
-					primaOra.setWeekDaySchedule(lunedi);
+//					primaOra.setWeekDaySchedule(lunedi);
 				
 				//SECONDAORA
 				DayHourSchedule secondaOra = new DayHourSchedule();
 				secondaOra.setDayHour(DayHourEnum.SECOND);
 				secondaOra.setSubject(mate);		
 					lunedi.getDayHourSchedules().add(secondaOra);
-					secondaOra.setWeekDaySchedule(lunedi);
+//					secondaOra.setWeekDaySchedule(lunedi);
 
 
 			
 			//MARTEDI
 			WeekDaySchedule martedi = new WeekDaySchedule();
 			martedi.setWeekDay(WeekDayEnum.TUESDAY);
-				martedi.setSchedule(orario);
+//				martedi.setSchedule(orario);
 				orario.getWeekDaySchedules().add(martedi);
 		
 				//PRIMAORA
@@ -137,16 +140,26 @@ public class UserController {
 				primaOraM.setDayHour(DayHourEnum.FIRST);
 				primaOraM.setSubject(mate);		
 					martedi.getDayHourSchedules().add(primaOraM);
-					primaOraM.setWeekDaySchedule(martedi);
+//					primaOraM.setWeekDaySchedule(martedi);
 				
 				//SECONDAORA
 				DayHourSchedule secondaOraM = new DayHourSchedule();
 				secondaOraM.setDayHour(DayHourEnum.SECOND);
 				secondaOraM.setSubject(mate);		
 					martedi.getDayHourSchedules().add(secondaOraM);
-					secondaOraM.setWeekDaySchedule(martedi);
+//					secondaOraM.setWeekDaySchedule(martedi);
 		
 		schoolClassRepository.save(classeGiorgia);
+		
+		Headmaster bolo = new Headmaster();
+		bolo.setEmail("bolognesi.marco@gmail.com");
+		bolo.setName("Marco");
+		bolo.setPassword("bolo");
+		bolo.setSex(SexEnum.MALE);
+		bolo.setSurname("Bolognesi");
+		bolo.setUsername("bolo");
+		bolo.getClasses().add(classeGiorgia);
+		userRepository.save(bolo);
 		
 		
 		return classeGiorgia.getId();

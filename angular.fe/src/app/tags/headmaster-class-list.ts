@@ -10,8 +10,6 @@ import { SchoolClass } from '../model/schoolclass.model';
 
 export class HeadMasterClassList implements OnInit {
 
-    private classDetailView: boolean = false;
-
     @Output() classDetailEvent = new EventEmitter();
 
     @Input() headmaster: User;

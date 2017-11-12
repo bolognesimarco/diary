@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -23,15 +23,20 @@ public class SchoolClass {
 	@Column
 	private String name;
 	
-	@ManyToOne
-	private Headmaster headmaster;
+//	@ManyToOne
+//	@Fetch(FetchMode.SELECT)
+//	private Headmaster headmaster;
 	
 
-	@OneToMany(mappedBy="schoolClass", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//	@OneToMany(mappedBy="schoolClass", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(orphanRemoval=true, fetch=FetchType.EAGER)
+    @JoinColumn(name="SCHOOL_CLASS_ID")
 	private Set<Subject> subjects = new HashSet<>();
 	
-	@OneToOne(mappedBy="schoolClass", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private Schedule schedule;	
+//	@OneToOne(mappedBy="schoolClass", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToOne(orphanRemoval=true, fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="SCHEDULE_ID")
+	private Schedule schedule;
 
 	public Schedule getSchedule() {
 		return schedule;
@@ -65,13 +70,13 @@ public class SchoolClass {
 		this.subjects = subjects;
 	}
 
-	public Headmaster getHeadmaster() {
-		return headmaster;
-	}
-
-	public void setHeadmaster(Headmaster headmaster) {
-		this.headmaster = headmaster;
-	}
+//	public Headmaster getHeadmaster() {
+//		return headmaster;
+//	}
+//
+//	public void setHeadmaster(Headmaster headmaster) {
+//		this.headmaster = headmaster;
+//	}
 	
 	
 }

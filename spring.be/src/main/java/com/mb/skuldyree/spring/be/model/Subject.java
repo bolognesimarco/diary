@@ -13,9 +13,7 @@ public class Subject {
 	@GeneratedValue
 	private long id;
 	
-	@ManyToOne
-	private SchoolClass schoolClass;
-	
+
 	@Column
 	private String name;
 
@@ -34,15 +32,6 @@ public class Subject {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public SchoolClass getSchoolClass() {
-		return schoolClass;
-	}
-
-	public void setSchoolClass(SchoolClass schoolClass) {
-		this.schoolClass = schoolClass;
-	}
-	
 	
 	
 }

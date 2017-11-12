@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -23,13 +24,15 @@ public class WeekDaySchedule implements Comparable<WeekDaySchedule> {
 	@Column
 	private WeekDayEnum weekDay;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="weekDaySchedule")
+//	@OneToMany(cascade=CascadeType.ALL, mappedBy="weekDaySchedule")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
+    @JoinColumn(name="WEEKDAY_SCHEDULE_ID")
 	@OrderBy("dayHour")
 	private SortedSet<DayHourSchedule> dayHourSchedules = new TreeSet<>();
 	
-	@ManyToOne
-	@JoinColumn(name="SCHEDULE_ID", nullable=false)
-	private Schedule schedule;
+//	@ManyToOne
+//	@JoinColumn(name="SCHEDULE_ID", nullable=false)
+//	private Schedule schedule;
 
 	public long getId() {
 		return id;
@@ -55,13 +58,13 @@ public class WeekDaySchedule implements Comparable<WeekDaySchedule> {
 		this.dayHourSchedules = dayHourSchedules;
 	}
 
-	public Schedule getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(Schedule schedule) {
-		this.schedule = schedule;
-	}
+//	public Schedule getSchedule() {
+//		return schedule;
+//	}
+//
+//	public void setSchedule(Schedule schedule) {
+//		this.schedule = schedule;
+//	}
 
 	@Override
 	public int compareTo(WeekDaySchedule o) {

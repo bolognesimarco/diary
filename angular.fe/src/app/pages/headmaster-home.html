@@ -4,10 +4,11 @@ Welcome <span *ngIf="headmaster.sex=='MALE'">Mr.</span><span *ngIf="headmaster.s
 <headmaster-class-list 
     *ngIf="!classDetailView" 
     [headmaster]="headmaster" 
-    (classDetailEvent)="toggleClassDetailView($event);">
+    (classDetailEvent)="schoolClassDetail($event);">
 </headmaster-class-list>
 
 <headmaster-class-detail 
     *ngIf="classDetailView" 
+    (classDetailEvent)="back($event);"
     [schoolclass]="schoolclass">
 </headmaster-class-detail>

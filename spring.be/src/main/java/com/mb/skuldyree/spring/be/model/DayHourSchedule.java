@@ -18,9 +18,6 @@ public class DayHourSchedule implements Comparable<DayHourSchedule>{
 	@Column(name="hour_of_day")
 	private DayHourEnum dayHour;
 	
-	@ManyToOne
-	@JoinColumn(name="WEEKDAY_SCHEDULE_ID", nullable=false)
-	private WeekDaySchedule weekDaySchedule;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="SUBJECT_ID")
@@ -50,13 +47,13 @@ public class DayHourSchedule implements Comparable<DayHourSchedule>{
 		this.subject = subject;
 	}
 
-	public WeekDaySchedule getWeekDaySchedule() {
-		return weekDaySchedule;
-	}
-
-	public void setWeekDaySchedule(WeekDaySchedule weekDaySchedule) {
-		this.weekDaySchedule = weekDaySchedule;
-	}
+//	public WeekDaySchedule getWeekDaySchedule() {
+//		return weekDaySchedule;
+//	}
+//
+//	public void setWeekDaySchedule(WeekDaySchedule weekDaySchedule) {
+//		this.weekDaySchedule = weekDaySchedule;
+//	}
 
 	@Override
 	public int compareTo(DayHourSchedule o) {

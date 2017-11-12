@@ -29,8 +29,12 @@ export class HeadmasterHome implements OnInit {
         this.headmaster = this.userService.getUser();
     }
 
-    public toggleClassDetailView($event: any): void {
+    public schoolClassDetail($event: any): void {
         this.schoolclass = $event.value;
+        this.classDetailView = !this.classDetailView;
+    }
+
+    public back($event: any): void {
         this.classDetailView = !this.classDetailView;
     }
 

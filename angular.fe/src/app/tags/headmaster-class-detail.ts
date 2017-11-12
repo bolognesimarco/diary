@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from '../model/user.model';
 import { SchoolClass } from '../model/schoolclass.model';
 
@@ -11,6 +11,12 @@ import { SchoolClass } from '../model/schoolclass.model';
 export class HeadMasterClassDetail implements OnInit {
 
     @Input() schoolclass: SchoolClass;
+    
+    @Output() classDetailEvent = new EventEmitter();
 
     ngOnInit() {}
+
+    public back(): void {
+        this.classDetailEvent.emit();
+    }
 }
